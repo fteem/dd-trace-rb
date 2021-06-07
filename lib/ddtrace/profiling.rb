@@ -96,10 +96,20 @@ module Datadog
 
       require 'ddtrace/profiling/pprof/pprof_pb'
 
+      puts ' [DDTRACE-PROFILER-INIT] Loaded profiler'
+
       true
     end
     private_class_method :load_profiling
 
-    load_profiling if supported?
+    puts " [DDTRACE-PROFILER-INIT] Attempting to load, unsupported_reason (if any): #{unsupported_reason.inspect}"
+    if supported?
+      load_profiling
+      @loaded_during_initialization = true
+      puts ' [DDTRACE-PROFILER-INIT] Loaded during initialization!'
+    else
+      @loaded_during_initialization = false
+      puts ' [DDTRACE-PROFILER-INIT] Not loaded during initialization'
+    end
   end
 end

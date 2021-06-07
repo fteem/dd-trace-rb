@@ -72,6 +72,9 @@ module Datadog
           return unless Datadog::Profiling.supported? && settings.profiling.enabled
 
           # Load extensions needed to support some of the Profiling features
+          Datadog.logger.debug("Force triggering load_profiling... loaded_during_initialization: #{Datadog::Profiling.instance_variable_get(:@loaded_during_initialization)}")
+          Datadog::Profiling.send(:load_profiling)
+
           Datadog::Profiling::Tasks::Setup.new.run
 
           # NOTE: Please update the Initialization section of ProfilingDevelopment.md with any changes to this method
