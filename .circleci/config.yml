@@ -202,7 +202,6 @@ orbs:
                   equal: [ << parameters.edge >>, true ]
               steps:
                 - *step_appraisal_install # Run on a stable set of gems we integrate with
-                - *ensure_lockfile_committed
           - *save_bundle_checksum
           - save_cache:
               key: '{{ .Environment.CIRCLE_CACHE_VERSION }}-bundled-repo-<<parameters.ruby_version>>-{{ .Environment.CIRCLE_SHA1 }}'
